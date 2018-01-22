@@ -2,19 +2,18 @@ package buscador;
 
 import org.apache.lucene.search.spell.JaroWinklerDistance;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import util.Column;;
+
 
 public class Distancia {
-    HashMap<String, Point> columnIndex = null;
+    ArrayList<Column> columns = null;
 
-    public Distancia(HashMap<String, Point> columnIndex) {
-        this.columnIndex = columnIndex;
+    public Distancia(ArrayList<Column> columns) {
+        this.columns = columns;
     }
 
     public String[] selectTheBest(ArrayList<String[]> candidates, String[] objective) {
-
         String[] selected = null;
         double score = 0, bigger = 0;
 
@@ -33,105 +32,94 @@ public class Distancia {
     }
 
     public double compareTwoSubjects(String[] candidate, String[] objective) {
-        /*
-		System.out.print(objective[this.columnIndex.get("NOME").x]+";"+candidate[this.columnIndex.get("NOME").y]+"\n");
-		System.out.print(objective[this.columnIndex.get("NOME_MAE").x]+";"+candidate[this.columnIndex.get("NOME_MAE").y]+"\n");
-		System.out.print(objective[this.columnIndex.get("DATA_NASC").x]+";"+candidate[this.columnIndex.get("DATA_NASC").y]+"\n");
-		System.out.print(objective[this.columnIndex.get("COD_IBGE").x]+";"+candidate[this.columnIndex.get("COD_IBGE").y]+"\n");
-		System.out.print(objective[this.columnIndex.get("COD_SEXO").x]+";"+candidate[this.columnIndex.get("COD_SEXO").y]+"\n");
-		*/
-
         double tmp_total = 2 + (0.125 * 8) + 0.08 + 0.04 + 0.5, score = 0;
-        if (objective[this.columnIndex.get("NOME").x].isEmpty() || objective[this.columnIndex.get("NOME").x].equals(" ")) {
-            tmp_total = tmp_total - 1;
-        } else {
-            score = score + getDistanceName(objective[this.columnIndex.get("NOME").x], candidate[this.columnIndex.get("NOME").y]);
-        }
-        // VARIAVEL NOME DA MAE
-        if (objective[this.columnIndex.get("NOME_MAE").x].isEmpty() || objective[this.columnIndex.get("NOME_MAE").x].equals(" ")) {
-            tmp_total = tmp_total - 1;
-        } else {
-            score = score + getDistanceName(objective[this.columnIndex.get("NOME_MAE").x], candidate[this.columnIndex.get("NOME_MAE").y]);
-        }
-        // VARIAVEL DATA DE NASCIMENTO
-        try {
-            if (objective[this.columnIndex.get("DATA_NASC").x].isEmpty() || objective[this.columnIndex.get("DATA_NASC").x].equals(" ")) {
-                tmp_total = tmp_total - (0.125 * 8);
-            } else {
-                score = score + getDistanceData(objective[this.columnIndex.get("DATA_NASC").x], candidate[this.columnIndex.get("DATA_NASC").y]);
-            }
-        } catch (ArrayIndexOutOfBoundsException dta) {
-            System.out.println("Data com erro: " + objective[this.columnIndex.get("DATA_NASC").x]);
-        }
-        // VARIAVEL CODIGO IBGE
-        try {
-            if (objective[this.columnIndex.get("COD_IBGE").x].isEmpty() || objective[this.columnIndex.get("COD_IBGE").x].equals(" ")) {
-                tmp_total = tmp_total - 0.08 - 0.04;
-            } else {
-                score = score + getDistanceIBGE(objective[this.columnIndex.get("COD_IBGE").x], candidate[this.columnIndex.get("COD_IBGE").y]);
-            }
-        } catch (StringIndexOutOfBoundsException ibge) {
-            System.out.println("Código IBGE com erro: " + objective[this.columnIndex.get("COD_IBGE").x]);
-        }
-        // VARIAVEL CODIGO SEXO
-        try {
-            if (objective[this.columnIndex.get("COD_SEXO").x].isEmpty() || objective[this.columnIndex.get("COD_SEXO").x].equals(" ")) {
-                tmp_total = tmp_total - 0.5;
-            } else {
-                if(objective[this.columnIndex.get("NOME").x].split(" ")[0].charAt(objective[this.columnIndex.get("NOME").x].split(" ")[0].length()-1) ==
-                candidate[this.columnIndex.get("NOME").y].split(" ")[0].charAt(candidate[this.columnIndex.get("NOME").y].split(" ")[0].length()-1)) {
-                    score = score + 0.5;
+
+        for(Column c : this.columns){
+            // PARA NOME E NOME DA MAE
+            if (c.getType().equals("string")){
+                if(objective[c.getColumn()].isEmpty() || objective[c.getColumn()].equals(" ")){
+                    tmp_total = tmp_total - c.getWeight();
                 } else {
-                    score = score + getDistanceLiteral(objective[this.columnIndex.get("COD_SEXO").x], candidate[this.columnIndex.get("COD_SEXO").y]);
+                    score = score + getDistanceString(objective[c.getColumn()], candidate[c.getColumn()], c.getWeight());
                 }
             }
-        } catch (StringIndexOutOfBoundsException ibge) {
-            System.out.println("Código IBGE com erro: " + objective[this.columnIndex.get("COD_IBGE").x]);
+            // PARA DATA DE NASCIMENTO
+            if (c.getType().equals("date")){
+                try {
+                    if (objective[c.getColumn()].isEmpty() || objective[c.getColumn()].equals(" ")) {
+                        tmp_total = tmp_total - c.getWeight();
+                    } else {
+                        score = score + getDistanceDate(objective[c.getColumn()], candidate[c.getColumn()], c.getWeight());
+                    }
+                } catch (ArrayIndexOutOfBoundsException dta) {
+                    System.out.println("Data com erro: " + objective[c.getColumn()]);
+                }
+            }
+            // PARA CODIGO DO MUNIC
+            if (c.getType().equals("ibge")){
+                try {
+                    if (objective[c.getColumn()].isEmpty() || objective[c.getColumn()].equals(" ")) {
+                        tmp_total = tmp_total - c.getWeight();
+                    } else {
+                        score = score + getDistanceIBGE(objective[c.getColumn()], candidate[c.getColumn()], c.getWeight());
+                    }
+                } catch (StringIndexOutOfBoundsException ibge) {
+                    System.out.println("Código IBGE com erro: " + objective[c.getColumn()]);
+                }
+            }
+            // PARA SEXO
+            if (c.getType().equals("categorical")){
+                try {
+                    if (objective[c.getColumn()].isEmpty() || objective[c.getColumn()].equals(" ")) {
+                        tmp_total = tmp_total - c.getWeight();
+                    } else {
+                        if(objective[c.getColumn()].charAt(objective[c.getColumn()].length()-1) ==
+                        candidate[c.getColumn()].charAt(candidate[c.getColumn()].length()-1)) {
+                            score = score + c.getWeight();
+                        } else {
+                            score = score + getDistanceCategorical(objective[c.getColumn()], candidate[c.getColumn()], c.getWeight());
+                        }
+                    }
+                } catch (StringIndexOutOfBoundsException ibge) {
+                    System.out.println("Código IBGE com erro: " + objective[c.getColumn()]);
+                }
+            }
         }
         return score / tmp_total;
     }
 
-    private double getDistanceName(String nome1, String nome2) {
+    private double getDistanceString(String nome1, String nome2, double w) {
         JaroWinklerDistance jaro = new JaroWinklerDistance();
-        return jaro.getDistance(nome1, nome2);
+        return w*jaro.getDistance(nome1, nome2);
     }
 
-    private double getDistanceData(String data1, String data2) {
+    private double getDistanceDate(String data1, String data2, double w) {
         double score = 0;
         data1 = data1.replaceAll("-", "");
         data2 = data2.replaceAll("-", "");
         for (int i = 0; i < data1.length(); i++) {
             if (data1.charAt(i) == data2.charAt(i)) {
-                score = score + 0.125;
+                score = score + w/data1.length();
             }
         }
-		/*
-		if(data1.split("-")[0].equals(data2.split("-")[0])) {
-			score += 0.33;
-		}
-		if(data1.split("-")[1].equals(data2.split("-")[1])) {
-			score += 0.33;
-		}
-		if(data1.split("-")[2].equals(data2.split("-")[2])) {
-			score += 0.33;
-		}*/
         return score;
     }
 
-    private double getDistanceIBGE(String ibge1, String ibge2) {
+    private double getDistanceIBGE(String ibge1, String ibge2, double w) {
         double score = 0;
+
         if (ibge1.substring(0, 2).equals(ibge2.substring(0, 2))) {
-            score = score + 0.04;
+            score = score + w/3;
             if (ibge1.substring(2, 6).equals(ibge2.substring(2, 6))) {
-                score = score + 0.08;
+                score = score + w/2;
             }
         }
         return score;
     }
 
-    private double getDistanceLiteral(String literal1, String literal2) {
+    private double getDistanceCategorical(String literal1, String literal2, double w) {
         if (literal1.equals(literal2)) {
-            return 0.5;
+            return w;
         }
         return 0.0;
     }

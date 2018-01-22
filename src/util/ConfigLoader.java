@@ -1,62 +1,71 @@
 package util;
 
-import java.awt.*;
-import java.util.HashMap;
+import java.util.ArrayList;
+
+import org.json.*;
+
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
- * Created by george on 8/3/16.
+ * Created by ohackgb on 8/3/16.
  */
 public class ConfigLoader {
     private String baseMenor;
     private String baseMaior;
-
     private String baseMaiorIndexada;
-
     private String[] header;
-
     private char mode;
 
-    HashMap<String, Point> columnIndex;
+    ArrayList<Column> columns;
+    /*
+    C0NFIGURACAO PADRAO
+    */
+    public ConfigLoader(){    
+        ArrayList<Column> columns = new ArrayList<>();
+        Column tmp = null;
 
-    public ConfigLoader(String baseMaior, String baseMenor, String baseMaiorIndexada, char mode, String[] header){
-
+        try {
+            // read json
+            String content = new String(Files.readAllBytes(Paths.get("assets/config.json")));
+            // parse its content
+            JSONObject obj = new JSONObject(content);
+            // set base maior
+            this.setBaseMaior(obj.getString("db_A"));
+            // set base menor
+            this.setBaseMenor(obj.getString("db_B"));
+            // set base indexada
+            this.setBaseMaiorIndexada(obj.getString("db_index"));
+            
+            JSONArray arr = obj.getJSONArray("columns");
+            for (int i = 0; i < arr.length(); i++)
+            {
+                // variable to read
+                tmp = new Column();
+                // set contents
+                tmp.setName(arr.getJSONObject(i).getString("name"));
+                tmp.setType(arr.getJSONObject(i).getString("type"));
+                tmp.setColumn(arr.getJSONObject(i).getInt("column")-1);
+                tmp.setWeight(arr.getJSONObject(i).getDouble("weight"));
+                // add to arrays
+                columns.add(tmp);
+            }
+            // add columns to config
+            this.setColumns(columns);
+        } catch (IOException e) {
+            System.out.println("Config file not found.");
+        }
+        System.out.println("Configs loaded.");
     }
 
-    public ConfigLoader(char mode){
-        HashMap<String, Point> columnIndex = new HashMap<>();
-        // SINAN-BA
-        /*
-        columnIndex.put("NOME", new Point(0, 3));
-        columnIndex.put("NOME_MAE", new Point(2, 6));
-        columnIndex.put("DATA_NASC", new Point(1, 5));
-        columnIndex.put("COD_IBGE", new Point(3, 9));
-        columnIndex.put("COD_SEXO", new Point(4, 4));
-        */
-        // DEFAULT (BASE_MENOR, BASE_MAIOR)
-        columnIndex.put("NOME", new Point(0, 4));
-        columnIndex.put("NOME_MAE", new Point(2, 5));
-        columnIndex.put("DATA_NASC", new Point(1, 6));
-        columnIndex.put("COD_IBGE", new Point(3, 11));
-        columnIndex.put("COD_SEXO", new Point(4, 7));
-
-
-        this.setMode(mode);
-        this.setColumnIndex(columnIndex);
-        this.setBaseMaior("assets/baseIndexacao.csv");
-        this.setBaseMaiorIndexada("assets/baseIndexada");
-        this.setBaseMenor("assets/basePesquisa.csv");
-
-        String[] header = {"NISES", "NUM_NIS_PESSOA_ATUAL", "NU_NIS_ORIGINAL", "COD_FAMILIAR_FAM", "NOM_PESSOA", "NOM_COMPLETO_MAE_PESSOA", "DTA_NASC_PESSOA", "COD_SEXO_PESSOA", "COD_PARENTESCO_RF_PESSOA", "COD_IBGE_MUNIC_NASC_PESSOA", "DAT_CADASTRAMENTO_FAM", "munic_​res", "Status", "A2007", "A2008", "A2009", "A2011", "A2012"};
-        this.setHeader(header);
-
+    public ArrayList<Column> getColumns() {
+        return this.columns;
     }
 
-    public HashMap<String, Point> getColumnIndex() {
-        return columnIndex;
-    }
-
-    public void setColumnIndex(HashMap<String, Point> columnIndex) {
-        this.columnIndex = columnIndex;
+    public void setColumns(ArrayList<Column> columns) {
+        this.columns = columns;
     }
 
     public char getMode() {

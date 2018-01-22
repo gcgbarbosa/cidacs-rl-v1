@@ -11,25 +11,26 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
 
+import util.Column;
+import util.ConfigLoader;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Buscador {
-    String header[] = null;
     StandardAnalyzer analyzer = new StandardAnalyzer();
-    Directory index = null;
-    IndexSearcher searcher = null;
-    QueryParser queryParser = null;
-    IndexReader reader = null;
-    TopScoreDocCollector collector = null;
+    Directory index;
+    IndexSearcher searcher;
+    QueryParser queryParser;
+    IndexReader reader;
+    TopScoreDocCollector collector;
+    ConfigLoader opts;
 
-    public Buscador(String baseIn, String[] header) throws IOException {
-        this.index = FSDirectory.open(Paths.get(baseIn));
+    public Buscador(ConfigLoader opts) throws IOException {
+        this.opts = opts;
+        this.index = FSDirectory.open(Paths.get(opts.getBaseMaiorIndexada()));
         this.reader = DirectoryReader.open(this.index);
-        this.header = header;
     }
 
     public ScoreDoc[] buscar(String busca, int hits) throws IOException, ParseException {
@@ -49,10 +50,10 @@ public class Buscador {
         for (int i = 0; i < found.length; i++) {
             int docId = found[i].doc;
             d = this.searcher.doc(docId);
-            s = new String[this.header.length + 1];
+            s = new String[this.opts.getColumns().size() + 1];
             j = 0;
-            for (String head : this.header) {
-                s[j++] = d.get(head);
+            for (Column c : this.opts.getColumns()) {
+                s[j++] = d.get(c.getName());
             }
             // ADICIONAR SCORE DO LUCENE
             s[j++] = String.valueOf(found[i].score);

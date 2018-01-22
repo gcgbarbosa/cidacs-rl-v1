@@ -16,10 +16,17 @@ public class IO {
             this.fw = new FileWriter(dest);
             this.bw = new BufferedWriter(fw);
 
-            this.bw.write("NOME_SIN;NOME_CAD;NOME_MAE_SIN;NOME_MAE_CAD;DTA_NASC_SIN;DTA_NASC_CAD;MUNIC_SIN;MUNIC_CAD;SEXO_SIN;SEX_CAD;SCORE;LEVEL;NIS_ATUAL\n");
+            //this.bw.write("NOME_SIN;NOME_CAD;NOME_MAE_SIN;NOME_MAE_CAD;DTA_NASC_SIN;DTA_NASC_CAD;MUNIC_SIN;MUNIC_CAD;SEXO_SIN;SEX_CAD;SCORE;LEVEL;NIS_ATUAL\n");
 
             for (ArrayList<String> linha : lines) {
-                this.bw.write(linha.get(0) + ";" + linha.get(1) + ";" + linha.get(2) + ";" + linha.get(3) + ";" + linha.get(4) + ";" + linha.get(5) + ";" + linha.get(6) + ";" + linha.get(7) + '\n');
+                this.bw.write(
+                    linha.get(0) + ";" + 
+                    linha.get(1) + ";" + 
+                    linha.get(2) + ";" + 
+                    linha.get(3) + ";" + 
+                    linha.get(4) + ";" + 
+                    linha.get(5) + ";" + 
+                    linha.get(6) + '\n');
             }
 
             this.bw.close();
@@ -55,7 +62,7 @@ public class IO {
     public Object [][] getTextFromResult(ArrayList<String[]> lines, HashMap<String, Point> columnIndex) {
         //String result = "NOME_CAD;NOME_MAE_CAD;DTA_NASC_CAD;MUNIC_CAD;SEXO;SCORE\n";
         Object [][] result = new Object[lines.size()][9];
-        String [] tmp;
+        //String [] tmp;
         int i=0;
         for (String[] linha : lines) {
             result[i][0] = linha[columnIndex.get("NOME").y];
