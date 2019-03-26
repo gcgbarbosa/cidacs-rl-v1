@@ -1,0 +1,83 @@
+Manifest-Version: 1.0
+Class-Path: dependencies/hadoop-mapreduce-client-app-2.6.5.jar depende
+ ncies/jersey-client-2.22.2.jar dependencies/kryo-shaded-3.0.3.jar dep
+ endencies/aopalliance-repackaged-2.4.0-b34.jar dependencies/xmlenc-0.
+ 52.jar dependencies/netty-all-4.1.17.Final.jar dependencies/hadoop-ya
+ rn-common-2.6.5.jar dependencies/jersey-media-jaxb-2.22.2.jar depende
+ ncies/xercesImpl-2.9.1.jar dependencies/lucene-spellchecker-3.6.2.jar
+  dependencies/compress-lzf-1.0.3.jar dependencies/hadoop-yarn-api-2.6
+ .5.jar dependencies/commons-httpclient-3.1.jar dependencies/org.jenet
+ ics-3.5.0.jar dependencies/lucene-queryparser-5.3.0.jar dependencies/
+ RoaringBitmap-0.5.11.jar dependencies/netty-3.9.9.Final.jar dependenc
+ ies/commons-configuration-1.6.jar dependencies/httpcore-4.4.1.jar dep
+ endencies/stax-api-1.0-2.jar dependencies/hadoop-mapreduce-client-job
+ client-2.6.5.jar dependencies/api-util-1.0.0-M20.jar dependencies/jul
+ -to-slf4j-1.7.16.jar dependencies/zookeeper-3.4.6.jar dependencies/ja
+ vassist-3.18.1-GA.jar dependencies/commons-crypto-1.0.0.jar dependenc
+ ies/xbean-asm5-shaded-4.4.jar dependencies/jersey-common-2.22.2.jar d
+ ependencies/guava-16.0.1.jar dependencies/log4j-1.2.17.jar dependenci
+ es/commons-compress-1.4.1.jar dependencies/spark-kvstore_2.11-2.3.1.j
+ ar dependencies/pyrolite-4.13.jar dependencies/hadoop-mapreduce-clien
+ t-shuffle-2.6.5.jar dependencies/py4j-0.10.7.jar dependencies/unused-
+ 1.0.0.jar dependencies/snappy-java-1.1.2.6.jar dependencies/hk2-locat
+ or-2.4.0-b34.jar dependencies/lucene-queries-5.3.0.jar dependencies/c
+ ommons-lang-2.6.jar dependencies/hk2-api-2.4.0-b34.jar dependencies/a
+ vro-ipc-1.7.7-tests.jar dependencies/jetty-util-6.1.26.jar dependenci
+ es/scala-reflect-2.11.8.jar dependencies/jets3t-0.9.4.jar dependencie
+ s/spark-unsafe_2.11-2.3.1.jar dependencies/jackson-jaxrs-1.9.13.jar d
+ ependencies/json4s-ast_2.11-3.2.11.jar dependencies/commons-io-2.4.ja
+ r dependencies/commons-math3-3.4.1.jar dependencies/lucene-sandbox-5.
+ 3.0.jar dependencies/objenesis-2.1.jar dependencies/jcl-over-slf4j-1.
+ 7.16.jar dependencies/hadoop-mapreduce-client-core-2.6.5.jar dependen
+ cies/commons-cli-1.2.jar dependencies/chill-java-0.8.4.jar dependenci
+ es/metrics-jvm-3.1.5.jar dependencies/curator-framework-2.6.0.jar dep
+ endencies/spark-network-common_2.11-2.3.1.jar dependencies/jersey-gua
+ va-2.22.2.jar dependencies/hadoop-client-2.6.5.jar dependencies/scala
+ -compiler-2.11.0.jar dependencies/spark-tags_2.11-2.3.1.jar dependenc
+ ies/javax.inject-2.4.0-b34.jar dependencies/paranamer-2.3.jar depende
+ ncies/jersey-server-2.22.2.jar dependencies/scala-xml_2.11-1.0.1.jar
+ dependencies/hadoop-yarn-server-common-2.6.5.jar dependencies/jackson
+ -module-paranamer-2.7.9.jar dependencies/scalap-2.11.0.jar dependenci
+ es/jersey-container-servlet-core-2.22.2.jar dependencies/commons-lang
+ 3-3.5.jar dependencies/spark-core_2.11-2.3.1.jar dependencies/slf4j-l
+ og4j12-1.7.16.jar dependencies/spark-network-shuffle_2.11-2.3.1.jar d
+ ependencies/jsr305-1.3.9.jar dependencies/json4s-core_2.11-3.2.11.jar
+  dependencies/commons-codec-2.0-20130428.202122-59.jar dependencies/h
+ adoop-hdfs-2.6.5.jar dependencies/hadoop-auth-2.6.5.jar dependencies/
+ scala-parser-combinators_2.11-1.0.1.jar dependencies/avro-1.7.7.jar d
+ ependencies/jackson-annotations-2.6.7.jar dependencies/commons-collec
+ tions-3.2.2.jar dependencies/metrics-graphite-3.1.5.jar dependencies/
+ lucene-analyzers-3.6.2.jar dependencies/minlog-1.3.0.jar dependencies
+ /oro-2.0.8.jar dependencies/jackson-core-2.6.7.jar dependencies/commo
+ ns-beanutils-core-1.8.0.jar dependencies/curator-client-2.6.0.jar dep
+ endencies/commons-beanutils-1.7.0.jar dependencies/htrace-core-3.0.4.
+ jar dependencies/api-asn1-api-1.0.0-M20.jar dependencies/chill_2.11-0
+ .8.4.jar dependencies/hk2-utils-2.4.0-b34.jar dependencies/hadoop-ann
+ otations-2.6.5.jar dependencies/spark-launcher_2.11-2.3.1.jar depende
+ ncies/jaxb-api-2.2.2.jar dependencies/javax.ws.rs-api-2.0.1.jar depen
+ dencies/apacheds-i18n-2.0.0-M15.jar dependencies/lucene-analyzers-com
+ mon-5.3.0.jar dependencies/bcprov-jdk15on-1.52.jar dependencies/httpc
+ lient-4.5.jar dependencies/xml-apis-1.3.04.jar dependencies/hadoop-ya
+ rn-client-2.6.5.jar dependencies/lucene-core-5.3.0.jar dependencies/i
+ vy-2.4.0.jar dependencies/commons-net-2.2.jar dependencies/json4s-jac
+ kson_2.11-3.2.11.jar dependencies/commons-digester-1.8.jar dependenci
+ es/scala-library-2.11.8.jar dependencies/base64-2.3.8.jar dependencie
+ s/metrics-core-3.1.5.jar dependencies/curator-recipes-2.6.0.jar depen
+ dencies/jackson-mapper-asl-1.9.13.jar dependencies/slf4j-api-1.7.16.j
+ ar dependencies/avro-mapred-1.7.7-hadoop2.jar dependencies/json-20171
+ 018.jar dependencies/xz-1.0.jar dependencies/jackson-databind-2.6.7.1
+ .jar dependencies/metrics-json-3.1.5.jar dependencies/hadoop-mapreduc
+ e-client-common-2.6.5.jar dependencies/gson-2.2.4.jar dependencies/co
+ mmons-csv-1.4.jar dependencies/jackson-core-asl-1.9.13.jar dependenci
+ es/stream-2.7.0.jar dependencies/osgi-resource-locator-1.0.1.jar depe
+ ndencies/leveldbjni-all-1.8.jar dependencies/activation-1.1.1.jar dep
+ endencies/javax.servlet-api-3.1.0.jar dependencies/jackson-module-sca
+ la_2.11-2.6.7.1.jar dependencies/java-xmlbuilder-1.1.jar dependencies
+ /apacheds-kerberos-codec-2.0.0-M15.jar dependencies/zstd-jni-1.3.2-2.
+ jar dependencies/avro-ipc-1.7.7.jar dependencies/protobuf-java-2.5.0.
+ jar dependencies/hadoop-common-2.6.5.jar dependencies/validation-api-
+ 1.1.0.Final.jar dependencies/jersey-container-servlet-2.22.2.jar depe
+ ndencies/lz4-java-1.4.0.jar dependencies/javax.annotation-api-1.2.jar
+  dependencies/jackson-xc-1.9.13.jar
+Main-Class: com.cidacs.rl.Main
+
