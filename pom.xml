@@ -17,6 +17,18 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>com.cidacs.rl.Main</mainClass>
+                    <!-- 
+                    # for cases where arguments are needed 
+                    <arguments>argument1</arguments> 
+                    -->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
