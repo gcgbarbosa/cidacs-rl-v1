@@ -26,3 +26,6 @@ hs_err_pid*
 
 # assets folder
 assets/
+
+# target folder
+target/
