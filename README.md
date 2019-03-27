@@ -27,7 +27,7 @@ wget https://github.com/cidacslab/atyimo/raw/master/atyimo_spark/datasets_sample
 ```
 gunzip DATASET_1_5K_records.csv.gz
 gunzip DATASET_2_1M_records.csv.gz
-mv DATASET_2_1M_records.csv dsa.csv
+mv DATASET_1_5K_records.csv dsa.csv
 mv DATASET_2_1M_records.csv dsb.csv
 ```
 
