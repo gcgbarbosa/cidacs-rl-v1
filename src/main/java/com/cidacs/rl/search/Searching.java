@@ -109,7 +109,6 @@ public class Searching {
             return tmpCandidate;
         }
 
-        RecordPairModel tmp;
         return null;
     }
 

@@ -63,6 +63,7 @@ public class Main {
 
                 // as vezes a ultima camada esta vazia e ele nao pega o numero certo de colunas
                 // tive que dar esse armengue
+                /*
                 ArrayList<String> tmpArr = new ArrayList<>();
                 for(String t: tmp){
                     tmpArr.add(t);
@@ -75,14 +76,15 @@ public class Main {
                 if(tmpArr.size()==7){
                     tmpArr.add("");
                 }
+                */
                 RecordModel tmpRecord = new RecordModel();
                 ArrayList<ColumnRecordModel> tmpRecordColumns = new ArrayList<ColumnRecordModel>();
-
+                
 
                 for(ColumnConfigModel column : config.getColumns()){
                     tmpIndex = Integer.parseInt(column.getIndexB());
                     try {
-                        tmpValue = tmpArr.get(tmpIndex).replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
+                        tmpValue = tmp[tmpIndex].replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
                         if(tmpValue.equals(" ")){
                             tmpValue = "";
                         }
