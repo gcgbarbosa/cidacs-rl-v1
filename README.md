@@ -6,7 +6,7 @@
 
 After cloning this repository follow the steps:
 
-1. Enter the repo folder and create a folder called assets.
+1. Enter the repo folder and create a folder called `assets`.
 
 ```
 git clone https://github.com/gcgbarbosa/cidacs-rl-v1.git
