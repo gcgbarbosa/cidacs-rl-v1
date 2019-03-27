@@ -29,3 +29,8 @@ assets/
 
 # target folder
 target/
+
+.classpath
+.project/
+.settings/
+
