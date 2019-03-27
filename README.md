@@ -1,4 +1,4 @@
-# Cidacs-rl
+# Cidacs-RL
 
 ## How to run
 
