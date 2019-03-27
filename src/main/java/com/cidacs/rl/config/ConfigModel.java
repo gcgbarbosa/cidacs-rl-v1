@@ -12,84 +12,20 @@ public class ConfigModel {
 
     private ArrayList<ColumnConfigModel> columns;
 
-    /* CONFIG TESTE
     public ConfigModel() {
         ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
 
         // colocar todas as configs aqui
-        this.dbA = "assets/dbA.csv";
-        this.dbB = "assets/dbB.csv";
-        this.dbIndex = "assets/dbAIndex";
+        this.dbA = "assets/dsa.csv";
+        this.dbB = "assets/dsb.csv";
+        this.dbIndex = "assets/dsb-index";
 
-        tmpColumnConfig.add(new ColumnConfigModel("id", "id","id_sim", "", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("restrictionDate", "restriction","DTOBITO", "", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("name", "name","NOME", "", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("fatherName", "name","NOMEPAI", "", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("motherName", "name","NOMEMAE", "", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("birthDate", "date","DTNASC", "", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","SEXO", "", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("ibge", "ibge","CODMUNRES", "", 1.0 ));
-
-        this.columns = tmpColumnConfig;
-    } */
-    /*
-    public ConfigModel() {
-        ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
-
-        // colocar todas as configs aqui
-        this.dbA = "assets/sim.csv";
-        this.dbB = "assets/horus.csv";
-        this.dbIndex = "assets/simIndex";
-
-        tmpColumnConfig.add(new ColumnConfigModel("id", "id","id_sim", "id_horus", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("restrictionDate", "restriction","DTOBITO", "dt_atualizacao_plus_cadastro", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("name", "name","NOME", "NO_NOME", 1.0 ));
-        //tmpColumnConfig.add(new ColumnConfigModel("fatherName", "name","NOMEPAI", "NO_PAI", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("motherName", "name","NOMEMAE", "NO_MAE", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("birthDate", "date","DTNASC", "DT_NASCIMENTO", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","SEXO", "TP_SEXO", 0.5 ));
-        tmpColumnConfig.add(new ColumnConfigModel("ibge", "ibge","CODMUNRES", "CO_MUNICIPIO_IBGE", 0.12 ));
-
-        this.columns = tmpColumnConfig;
-    }*/
-    /*(
-    public ConfigModel() {
-        ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
-
-        // colocar todas as configs aqui
-        this.dbA = "assets/sim.csv";
-        this.dbB = "assets/horus.csv";
-        this.dbIndex = "assets/simIndex";
-
-        tmpColumnConfig.add(new ColumnConfigModel("id", "id","id_sim", "0", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("restrictionDate", "restriction","DTOBITO", "1", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("name", "name","NOME", "2", 1.0 ));
-        //tmpColumnConfig.add(new ColumnConfigModel("fatherName", "name","NOMEPAI", "3", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("motherName", "name","NOMEMAE", "4", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("birthDate", "date","DTNASC", "5", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","SEXO", "6", 0.5 ));
-        tmpColumnConfig.add(new ColumnConfigModel("ibge", "ibge","CODMUNRES", "7", 0.12 ));
-
-        this.columns = tmpColumnConfig;
-    }*/
-
-
-    public ConfigModel() {
-        ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
-
-        // colocar todas as configs aqui
-        this.dbA = "assets/horus.csv";
-        this.dbB = "assets/sih.csv";
-        this.dbIndex = "assets/horusIndex";
-
-        tmpColumnConfig.add(new ColumnConfigModel("id", "id","id_horus", "0", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("restrictionDate", "restriction","dt_atualizacao_plus_cadastro", "1", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("name", "name","NO_NOME", "2", 1.0 ));
-        //tmpColumnConfig.add(new ColumnConfigModel("fatherName", "name","NO_PAI", "3", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("motherName", "name","NO_MAE", "4", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("birthDate", "date","DT_NASCIMENTO", "5", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","TP_SEXO", "6", 0.5 ));
-        tmpColumnConfig.add(new ColumnConfigModel("ibge", "ibge","CO_MUNICIPIO_IBGE", "7", 0.12 ));
+        tmpColumnConfig.add(new ColumnConfigModel("id", "id","code", "0", 0.0 ));
+        tmpColumnConfig.add(new ColumnConfigModel("ibge", "ibge","municipality_residence", "1", 0.12 ));
+        tmpColumnConfig.add(new ColumnConfigModel("name", "name","name", "2", 1.0 ));
+        tmpColumnConfig.add(new ColumnConfigModel("motherName", "name","mother_name", "3", 1.0 ));
+        tmpColumnConfig.add(new ColumnConfigModel("birthDate", "date","birth_date", "4", 1.0 ));
+        tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","gender", "5", 0.5 ));
 
         this.columns = tmpColumnConfig;
     }
