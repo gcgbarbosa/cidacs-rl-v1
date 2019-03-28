@@ -12,6 +12,7 @@ public class ConfigModel {
 
     private ArrayList<ColumnConfigModel> columns = new ArrayList<ColumnConfigModel>();
     
+    /*
     public ConfigModel() {
         ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
 
@@ -28,10 +29,13 @@ public class ConfigModel {
         tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","gender", "5", 0.5 ));
 
         this.columns = tmpColumnConfig;
+    }*/
+
+    public ConfigModel() {
+
     }
 
     public ConfigModel(String dbA, String dbB, String dbIndex, ArrayList<ColumnConfigModel> columns) {
-
         this.dbA = dbA;
         this.dbB = dbB;
         this.dbIndex = dbIndex;

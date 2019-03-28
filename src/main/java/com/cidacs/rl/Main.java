@@ -53,7 +53,10 @@ public class Main {
 
         distFile.map(new Function<String, String>() {
             public String call(String stringCsv) {
-                ConfigModel config = new ConfigModel();
+                // Reading config
+                ConfigReader confReader = new ConfigReader();
+                ConfigModel config = confReader.readConfig();
+
                 Linkage linkage = new Linkage(config);
 
                 int tmpIndex;
