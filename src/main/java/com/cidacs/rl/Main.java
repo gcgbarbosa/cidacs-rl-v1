@@ -61,22 +61,6 @@ public class Main {
                 String tmp[];
                 tmp = stringCsv.split(",");
 
-                // as vezes a ultima camada esta vazia e ele nao pega o numero certo de colunas
-                // tive que dar esse armengue
-                /*
-                ArrayList<String> tmpArr = new ArrayList<>();
-                for(String t: tmp){
-                    tmpArr.add(t);
-                }
-                if(tmpArr.size()==6){
-                    tmpArr.add("");
-                    tmpArr.add("");
-                    System.out.println("Linha com menos 2 colunas? "+ stringCsv);
-                }
-                if(tmpArr.size()==7){
-                    tmpArr.add("");
-                }
-                */
                 RecordModel tmpRecord = new RecordModel();
                 ArrayList<ColumnRecordModel> tmpRecordColumns = new ArrayList<ColumnRecordModel>();
                 
@@ -103,15 +87,6 @@ public class Main {
             }
         }).saveAsTextFile("assets/result");
 
-
-
-        //System.out.println("dak;sa;s'á(sASDHKA)SDJASD di123 ASHJDIASHD asdasd".replaceAll("[^A-Z0-9 ]", ""));
-        // read database B
-        //testRecord = searching.searchCandidateRecordsFromStrQuery("name: JOSE",10).get(0);
-        //System.out.println(testRecord);
-        //testPair = searching.getCandidatePairFromRecord(testRecord);
-        //System.out.println(testPair.getRecordA());
-        //System.out.println(testPair.getRecordB());
-
+        sc.close();
     }
 }
