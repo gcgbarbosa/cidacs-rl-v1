@@ -10,8 +10,8 @@ public class ConfigModel {
     private String dbB;
     private String dbIndex;
 
-    private ArrayList<ColumnConfigModel> columns;
-
+    private ArrayList<ColumnConfigModel> columns = new ArrayList<ColumnConfigModel>();
+    
     public ConfigModel() {
         ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
 
@@ -65,6 +65,10 @@ public class ConfigModel {
 
     public ArrayList<ColumnConfigModel> getColumns() {
         return columns;
+    }
+
+    public void addColumn(ColumnConfigModel column) {
+        this.columns.add(column);
     }
 
     public void setColumns(ArrayList<ColumnConfigModel> columns) {
