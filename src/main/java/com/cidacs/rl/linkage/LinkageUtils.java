@@ -40,7 +40,7 @@ public class LinkageUtils {
         for (ColumnConfigModel col: config.getColumns()){
             headerResult = headerResult + col.getIndexB()+"_dsb,";
         }
-        headerResult = headerResult.substring(0, headerResult.length()-1);
+        headerResult = headerResult + "score";
         return headerResult;
     }
 }
