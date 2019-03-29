@@ -25,13 +25,25 @@ import java.util.ArrayList;
 
 
 public class Main {
-
     public static void main(String[] args) {
+        // Reading config
+        ConfigReader confReader = new ConfigReader();
+        ConfigModel config = confReader.readConfig();
+        
+        // Declare a CsvReader for indexing the smaller database
+        CsvReader csvReader = new CsvReader();
+        Indexing indexing = new Indexing(config);
+
+        // read database A using CSV
+        Iterable<CSVRecord> dbACsvRecords;
+        dbACsvRecords = csvReader.getCsvIterable(config.getDbA());
+        indexing.index(dbACsvRecords);
+
         SparkSession spark = SparkSession
-        .builder()
-        .appName("Cidacs-RL")
-        .config("spark.master", "local[*]")
-        .getOrCreate();
+            .builder()
+            .appName("Cidacs-RL")
+            .config("spark.master", "local[*]")
+            .getOrCreate();
 
         // read dataset
         // assets/dsa.csv
@@ -41,85 +53,30 @@ public class Main {
             .option("header", "true")
             .load("assets/dsb.csv");
 
-
-        System.out.println(
-            dsb.javaRDD().map(new Function<Row, String>() {
-                public String call(Row row){
-                    
-                    return row.getAs("name");
-                }
-            }).take(10) );
-
-        System.out.println("DS:");
-        dsb.show();
-
-        spark.stop();
-
-        /*
-        // Spark
-        SparkConf conf = new SparkConf().setAppName("cidacs-rl").setMaster("local[*]");
-        JavaSparkContext sc = new JavaSparkContext(conf);
-        // Reading config
-        ConfigReader confReader = new ConfigReader();
-        ConfigModel config = confReader.readConfig();
-
-        CsvReader csvReader = new CsvReader();
-        Indexing indexing = new Indexing(config);
-
-        //Searching searching = new Searching(config);
-        //Linkage linkage = new Linkage(config);
-
-        //RecordModel testRecord;
-        //RecordPairModel testPair;
-
-        // read database A using CSV
-        Iterable<CSVRecord> dbACsvRecords;
-        dbACsvRecords = csvReader.getCsvIterable(config.getDbA());
-        indexing.index(dbACsvRecords);
-
-        // read database B
-        //Iterable<CSVRecord> dbBCsvRecords;
-        //dbBCsvRecords = csvReader.getCsvIterable(config.getDbB());
-        //linkage.link(dbBCsvRecords);
-
-
-        JavaRDD<String> distFile = sc.textFile(config.getDbB(), 448);
-
-        distFile.map(new Function<String, String>() {
-            public String call(String stringCsv) {
+        dsb.javaRDD().map(new Function<Row, String>() {
+            public String call(Row row){
                 // Reading config
                 ConfigReader confReader = new ConfigReader();
                 ConfigModel config = confReader.readConfig();
 
                 Linkage linkage = new Linkage(config);
 
-                int tmpIndex;
-                String tmpValue;
-                String tmpId;
-                String tmpType;
-
-                // quebrar a string csv
-                String tmp[];
-                tmp = stringCsv.split(",");
-
                 RecordModel tmpRecord = new RecordModel();
                 ArrayList<ColumnRecordModel> tmpRecordColumns = new ArrayList<ColumnRecordModel>();
                 
-
                 for(ColumnConfigModel column : config.getColumns()){
-                    tmpIndex = Integer.parseInt(column.getIndexB());
                     try {
-                        tmpValue = tmp[tmpIndex].replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
+                        String tmpValue = row.getAs(column.getIndexB());
+                        tmpValue = tmpValue.replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
                         if(tmpValue.equals(" ")){
                             tmpValue = "";
                         }
-                        tmpId = column.getId();
-                        tmpType = column.getType();
+                        String tmpId = column.getId();
+                        String tmpType = column.getType();
                         tmpRecordColumns.add(new ColumnRecordModel(tmpId, tmpType, tmpValue));
                     } catch (ArrayIndexOutOfBoundsException e){
                         e.printStackTrace();
                     }
-
                 }
                 tmpRecord.setColumnRecordModels(tmpRecordColumns);
 
@@ -128,7 +85,6 @@ public class Main {
             }
         }).saveAsTextFile("assets/result");
 
-        sc.close();
-        */
+        spark.stop();
     }
 }
