@@ -61,7 +61,6 @@ public class Searching {
         // filter unused columns
         String recordId = record.getColumnRecordModels().get(0).getValue();
 
-
         // FASE 1
         strBusca = this.seachingUtils.getStrQueryExact(filteredColumns);
         // DO THE QUERY
@@ -74,7 +73,6 @@ public class Searching {
                 return tmpCandidate;
             }
         }
-
 
         // FASE 2
         tmpCandidates = new ArrayList<RecordModel>();
@@ -108,7 +106,6 @@ public class Searching {
             tmpCandidate = recordComparator.findBestCandidatePair(record,tmpCandidates);
             return tmpCandidate;
         }
-
         return null;
     }
 

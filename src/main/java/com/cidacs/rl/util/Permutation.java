@@ -13,7 +13,7 @@ public class Permutation {
 
         ArrayList<Integer> item = new ArrayList<Integer>();
         dfs(n, k, 1, item, result); // because it need to begin from 1
-
+        
         return result;
     }
 
