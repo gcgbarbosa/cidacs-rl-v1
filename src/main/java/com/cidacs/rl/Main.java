@@ -3,7 +3,7 @@ package com.cidacs.rl;
 import com.cidacs.rl.config.ColumnConfigModel;
 import com.cidacs.rl.config.ConfigModel;
 import com.cidacs.rl.config.ConfigReader;
-import com.cidacs.rl.io.CsvReader;
+import com.cidacs.rl.io.CsvHandler;
 import com.cidacs.rl.linkage.Linkage;
 import com.cidacs.rl.record.ColumnRecordModel;
 import com.cidacs.rl.record.RecordModel;
@@ -26,7 +26,7 @@ public class Main {
         ConfigModel config = confReader.readConfig();
         
         // Declare a CsvReader for indexing the smaller database
-        CsvReader csvReader = new CsvReader();
+        CsvHandler csvReader = new CsvHandler();
         Indexing indexing = new Indexing(config);
 
         // read database A using CSV
@@ -90,8 +90,9 @@ public class Main {
                 return linkage.linkSpark(tmpRecord);
             }
             private static final long serialVersionUID = 1L;
-        }).saveAsTextFile("assets/result");
+        }).saveAsTextFile("assets/result_" + new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(java.util.Calendar.getInstance().getTime()));
         //
+        // Write header to file
         spark.stop();
     }
 }

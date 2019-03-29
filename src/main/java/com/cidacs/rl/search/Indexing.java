@@ -80,7 +80,7 @@ public class Indexing {
 
         tmpRecordColumns = new ArrayList<ColumnRecordModel>();
         for(ColumnConfigModel column : config.getColumns()){
-            tmpIndex = column.getIndexdA();
+            tmpIndex = column.getIndexA();
             tmpValue = csvRecord.get(tmpIndex).replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
             if(tmpValue.equals(" ")){
                 tmpValue = "";

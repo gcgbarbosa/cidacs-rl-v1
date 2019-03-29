@@ -27,10 +27,9 @@ public class Linkage {
     public String linkSpark(RecordModel record) {
         Searching searching = new Searching(this.config);
         LinkageUtils linkageUtils = new LinkageUtils();
-        RecordPairModel testPair;
-        testPair = searching.getCandidatePairFromRecord(record);
+        RecordPairModel candidatePair = searching.getCandidatePairFromRecord(record);
         try {
-            return linkageUtils.fromRecordPairToCsv(testPair);
+            return linkageUtils.fromRecordPairToCsv(candidatePair);
         } catch (NullPointerException e) {
             System.out.println("Row " + record.getColumnRecordModels().get(0).getValue() + " could not be linked.");
         }
