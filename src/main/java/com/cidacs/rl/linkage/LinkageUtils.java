@@ -9,10 +9,10 @@ public class LinkageUtils {
     public String fromRecordPairToCsv(RecordPairModel recordPair){
         String csvResult = "";
         for(ColumnRecordModel column: recordPair.getRecordA().getColumnRecordModels()){
-            csvResult=csvResult+column.getValue()+";";
+            csvResult=csvResult+column.getValue()+",";
         }
         for(ColumnRecordModel column: recordPair.getRecordB().getColumnRecordModels()){
-            csvResult=csvResult+column.getValue()+";";
+            csvResult=csvResult+column.getValue()+",";
         }
         csvResult = csvResult + recordPair.getScore();
         return csvResult;
@@ -21,10 +21,10 @@ public class LinkageUtils {
     public String getCsvHeaderFromRecordPair(RecordPairModel recordPair){
         String headerResult = "";
         for(ColumnRecordModel column: recordPair.getRecordA().getColumnRecordModels()){
-            headerResult=headerResult+column.getId()+"_dsa;";
+            headerResult=headerResult+column.getId()+"_dsa,";
         }
         for(ColumnRecordModel column: recordPair.getRecordB().getColumnRecordModels()){
-            headerResult=headerResult+column.getId()+"_dsb;";
+            headerResult=headerResult+column.getId()+"_dsb,";
         }
         headerResult = headerResult + "score";
         return headerResult;
@@ -34,12 +34,13 @@ public class LinkageUtils {
         String headerResult = "";
         // for each column a add to result
         for (ColumnConfigModel col: config.getColumns()){
-            headerResult = headerResult + col.getIndexA()+"_dsa";
+            headerResult = headerResult + col.getIndexA()+"_dsa,";
         }
         // for each column b add to result
         for (ColumnConfigModel col: config.getColumns()){
-            headerResult = headerResult + col.getIndexB()+"_dsb";
+            headerResult = headerResult + col.getIndexB()+"_dsb,";
         }
+        headerResult = headerResult.substring(0, headerResult.length()-1);
         return headerResult;
     }
 }

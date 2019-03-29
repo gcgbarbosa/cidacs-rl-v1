@@ -26,12 +26,12 @@ public class Main {
         ConfigModel config = confReader.readConfig();
         
         // Declare a CsvReader for indexing the smaller database
-        CsvHandler csvReader = new CsvHandler();
+        CsvHandler csvHandler = new CsvHandler();
         Indexing indexing = new Indexing(config);
 
         // read database A using CSV
         Iterable<CSVRecord> dbACsvRecords;
-        dbACsvRecords = csvReader.getCsvIterable(config.getDbA());
+        dbACsvRecords = csvHandler.getCsvIterable(config.getDbA());
         indexing.index(dbACsvRecords);
 
         // Start Spark session
@@ -91,6 +91,8 @@ public class Main {
             }
             private static final long serialVersionUID = 1L;
         }).saveAsTextFile("assets/result_" + new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(java.util.Calendar.getInstance().getTime()));
+
+        csvHandler.writeHeaderFromConfig("assets/header.csv", config);
         //
         // Write header to file
         spark.stop();
