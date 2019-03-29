@@ -77,7 +77,7 @@ public class Indexing {
         String tmpValue;
         String tmpId;
         String tmpType;
-        ArrayList tmpRecordColumns;
+        ArrayList<ColumnRecordModel> tmpRecordColumns;
 
         tmpRecordColumns = new ArrayList<ColumnRecordModel>();
         for(ColumnConfigModel column : config.getColumns()){

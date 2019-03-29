@@ -7,8 +7,6 @@ import java.io.IOException;
 import com.cidacs.rl.config.ColumnConfigModel;
 
 public class ConfigReader {
-    private String configPath;
-
     public ConfigModel readConfig(){
         ConfigModel configModel = new ConfigModel();
 

@@ -43,7 +43,6 @@ public class Linkage {
         LinkageUtils linkageUtils = new LinkageUtils();
 
         String resultPath = "assets/result_a_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".csv";
-        Path dbIndexPath = Paths.get(this.config.getDbIndex());
 
         RecordPairModel testPair;
 
@@ -95,7 +94,7 @@ public class Linkage {
         String tmpValue;
         String tmpId;
         String tmpType;
-        ArrayList tmpRecordColumns;
+        ArrayList<ColumnRecordModel> tmpRecordColumns;
 
         tmpRecordColumns = new ArrayList<ColumnRecordModel>();
         for(ColumnConfigModel column : config.getColumns()){

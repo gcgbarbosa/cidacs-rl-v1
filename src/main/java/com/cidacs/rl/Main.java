@@ -89,6 +89,7 @@ public class Main {
                 //
                 return linkage.linkSpark(tmpRecord);
             }
+            private static final long serialVersionUID = 1L;
         }).saveAsTextFile("assets/result");
         //
         spark.stop();
