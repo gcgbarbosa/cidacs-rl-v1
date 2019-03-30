@@ -15,7 +15,6 @@ public class SearchingUtils {
         for (String strPiece : tmp) {
             result = result + strPiece + "~ ";
         }
-
         return result.substring(0, result.length()-1);
     }
 
@@ -54,6 +53,7 @@ public class SearchingUtils {
 
     public String getStrQueryExact(ArrayList<ColumnRecordModel> columns){
         String query = new String();
+        
         for(ColumnRecordModel column: columns){
             if(column.getValue().isEmpty() == false) {
                 if (column.getType().equals("name")) {
@@ -78,7 +78,6 @@ public class SearchingUtils {
         ArrayList<ColumnRecordModel> tmpResult = new ArrayList<ColumnRecordModel>();
 
         for (ColumnRecordModel column : columns){
-
             switch(column.getType()){
                 case "name":
                     tmpResult.add(column);
@@ -96,5 +95,4 @@ public class SearchingUtils {
         }
         return tmpResult;
     }
-
 }

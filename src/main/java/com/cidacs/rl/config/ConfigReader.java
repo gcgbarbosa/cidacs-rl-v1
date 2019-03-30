@@ -7,8 +7,6 @@ import java.io.IOException;
 import com.cidacs.rl.config.ColumnConfigModel;
 
 public class ConfigReader {
-    private String configPath;
-
     public ConfigModel readConfig(){
         ConfigModel configModel = new ConfigModel();
 
@@ -46,13 +44,6 @@ public class ConfigReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*
-        if (inputStream != null) {
-            prop.load(inputStream);
-        } else {
-            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-        }*/
-        // write your code here
         return configModel;
     }
 }

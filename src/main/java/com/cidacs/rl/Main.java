@@ -3,97 +3,98 @@ package com.cidacs.rl;
 import com.cidacs.rl.config.ColumnConfigModel;
 import com.cidacs.rl.config.ConfigModel;
 import com.cidacs.rl.config.ConfigReader;
-import com.cidacs.rl.io.CsvReader;
+import com.cidacs.rl.io.CsvHandler;
 import com.cidacs.rl.linkage.Linkage;
 import com.cidacs.rl.record.ColumnRecordModel;
 import com.cidacs.rl.record.RecordModel;
-import com.cidacs.rl.record.RecordPairModel;
 import com.cidacs.rl.search.Indexing;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.hadoop.hdfs.DFSClient.Conf;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.SparkConf;
+
 import org.apache.spark.api.java.function.Function;
+
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 import java.util.ArrayList;
 
 
 public class Main {
-
     public static void main(String[] args) {
-        // Spark
-        SparkConf conf = new SparkConf().setAppName("cidacs-rl").setMaster("local[*]");
-        JavaSparkContext sc = new JavaSparkContext(conf);
         // Reading config
         ConfigReader confReader = new ConfigReader();
         ConfigModel config = confReader.readConfig();
-
-        CsvReader csvReader = new CsvReader();
+        
+        // Declare a CsvReader for indexing the smaller database
+        CsvHandler csvHandler = new CsvHandler();
         Indexing indexing = new Indexing(config);
-
-        //Searching searching = new Searching(config);
-        //Linkage linkage = new Linkage(config);
-
-        //RecordModel testRecord;
-        //RecordPairModel testPair;
 
         // read database A using CSV
         Iterable<CSVRecord> dbACsvRecords;
-        dbACsvRecords = csvReader.getCsvIterable(config.getDbA());
+        dbACsvRecords = csvHandler.getCsvIterable(config.getDbA());
         indexing.index(dbACsvRecords);
 
-        // read database B
-        //Iterable<CSVRecord> dbBCsvRecords;
-        //dbBCsvRecords = csvReader.getCsvIterable(config.getDbB());
-        //linkage.link(dbBCsvRecords);
+        // Start Spark session
+        SparkSession spark = SparkSession
+            .builder()
+            .appName("Cidacs-RL")
+            .config("spark.master", "local[*]")
+            .getOrCreate();
 
+        // read dataset
+        // assets/dsa.csv
+        Dataset<Row> dsb = spark.read().format("csv")
+            .option("sep", ",")
+            .option("inferSchema", "false")
+            .option("header", "true")
+            .load(config.getDbB());
 
-        JavaRDD<String> distFile = sc.textFile(config.getDbB(), 448);
-
-        distFile.map(new Function<String, String>() {
-            public String call(String stringCsv) {
-                // Reading config
+        dsb.javaRDD().map(new Function<Row, String>() {
+            public String call(Row row){
+                // Reading config again
+                // Using the config from outer scope throws java not serializable error
                 ConfigReader confReader = new ConfigReader();
                 ConfigModel config = confReader.readConfig();
-
+                // same with linkage
                 Linkage linkage = new Linkage(config);
 
-                int tmpIndex;
-                String tmpValue;
-                String tmpId;
-                String tmpType;
-
-                // quebrar a string csv
-                String tmp[];
-                tmp = stringCsv.split(",");
-
+                // place holder variables to instanciate an record object
                 RecordModel tmpRecord = new RecordModel();
                 ArrayList<ColumnRecordModel> tmpRecordColumns = new ArrayList<ColumnRecordModel>();
                 
-
+                // convert row to RecordModel
                 for(ColumnConfigModel column : config.getColumns()){
-                    tmpIndex = Integer.parseInt(column.getIndexB());
                     try {
-                        tmpValue = tmp[tmpIndex].replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
+                        String tmpValue = row.getAs(column.getIndexB());
+                        // Remove anything that is not a uppercase letter and a digit
+                        tmpValue = tmpValue.replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
+                        // if the value is equal to one space, add empty string instead
                         if(tmpValue.equals(" ")){
                             tmpValue = "";
                         }
-                        tmpId = column.getId();
-                        tmpType = column.getType();
+                        //
+                        String tmpId = column.getId();
+                        // maybe it is not necessary to have the tipe of the variable replicated
+                        // FIXME: add function to config that allows for consulting the type of the variable
+                        // using the ID
+                        String tmpType = column.getType();
+                        // add new column 
                         tmpRecordColumns.add(new ColumnRecordModel(tmpId, tmpType, tmpValue));
                     } catch (ArrayIndexOutOfBoundsException e){
                         e.printStackTrace();
                     }
-
                 }
+                // set the column to record
                 tmpRecord.setColumnRecordModels(tmpRecordColumns);
-
-
+                //
                 return linkage.linkSpark(tmpRecord);
             }
-        }).saveAsTextFile("assets/result");
+            private static final long serialVersionUID = 1L;
+        }).saveAsTextFile("assets/result_" + new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(java.util.Calendar.getInstance().getTime()));
 
-        sc.close();
+        csvHandler.writeHeaderFromConfig("assets/header.csv", config);
+        //
+        // Write header to file
+        spark.stop();
     }
 }

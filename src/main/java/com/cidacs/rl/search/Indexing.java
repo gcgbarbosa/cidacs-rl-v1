@@ -35,7 +35,7 @@ public class Indexing {
         Path dbIndexPath = Paths.get(this.config.getDbIndex());
 
         if (Files.exists(dbIndexPath)){
-            System.out.println("There is a database already indexed the provided name.");
+            System.out.println("There is a database already indexed with the name provided.");
         } else {
             StandardAnalyzer analyzer = new StandardAnalyzer();
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -48,7 +48,6 @@ public class Indexing {
                 for (CSVRecord csvRecord : csvRecords) {
                     tmpRecordModel = this.fromCSVRecordToRecord(csvRecord);
                     this.addRecordToIndex(tmpRecordModel);
-                    //System.out.println(tmpRecordModel.getColumnRecordModels().get(0).getValue());
                 }
 
                 this.inWriter.close();
@@ -77,11 +76,11 @@ public class Indexing {
         String tmpValue;
         String tmpId;
         String tmpType;
-        ArrayList tmpRecordColumns;
+        ArrayList<ColumnRecordModel> tmpRecordColumns;
 
         tmpRecordColumns = new ArrayList<ColumnRecordModel>();
         for(ColumnConfigModel column : config.getColumns()){
-            tmpIndex = column.getIndexdA();
+            tmpIndex = column.getIndexA();
             tmpValue = csvRecord.get(tmpIndex).replaceAll("[^A-Z0-9 ]", "").replaceAll("\\s+", " ");
             if(tmpValue.equals(" ")){
                 tmpValue = "";

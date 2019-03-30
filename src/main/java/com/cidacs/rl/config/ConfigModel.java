@@ -1,8 +1,5 @@
 package com.cidacs.rl.config;
 
-import com.cidacs.rl.record.ColumnRecordModel;
-
-
 import java.util.ArrayList;
 
 public class ConfigModel {
@@ -11,25 +8,6 @@ public class ConfigModel {
     private String dbIndex;
 
     private ArrayList<ColumnConfigModel> columns = new ArrayList<ColumnConfigModel>();
-    
-    /*
-    public ConfigModel() {
-        ArrayList<ColumnConfigModel> tmpColumnConfig = new ArrayList<ColumnConfigModel>();
-
-        // colocar todas as configs aqui
-        this.dbA = "assets/dsa.csv";
-        this.dbB = "assets/dsb.csv";
-        this.dbIndex = "assets/dsb-index";
-
-        tmpColumnConfig.add(new ColumnConfigModel("id", "id","code", "0", 0.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("ibge", "ibge","municipality_residence", "1", 0.12 ));
-        tmpColumnConfig.add(new ColumnConfigModel("name", "name","name", "2", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("motherName", "name","mother_name", "3", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("birthDate", "date","birth_date", "4", 1.0 ));
-        tmpColumnConfig.add(new ColumnConfigModel("gender", "categorical","gender", "5", 0.5 ));
-
-        this.columns = tmpColumnConfig;
-    }*/
 
     public ConfigModel() {
 
@@ -41,7 +19,6 @@ public class ConfigModel {
         this.dbIndex = dbIndex;
         this.columns = columns;
     }
-
 
     public String getDbA() {
         return dbA;

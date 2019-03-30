@@ -31,7 +31,7 @@ public class ColumnConfigModel {
         this.type = type;
     }
 
-    public String getIndexdA() {
+    public String getIndexA() {
         return indexA;
     }
 
