@@ -49,7 +49,7 @@ public class Main {
             .option("header", "true")
             .load(config.getDbB());
             
-        String resultPath = "assets/result-" + new java.text.SimpleDateFormat("yyyyMMdd-HHmmss").format(java.util.Calendar.getInstance().getTime());
+        String resultPath = "assets/linkage-" + new java.text.SimpleDateFormat("yyyyMMdd-HHmmss").format(java.util.Calendar.getInstance().getTime());
 
         dsb.javaRDD().map(new Function<Row, String>() {
             public String call(Row row){
