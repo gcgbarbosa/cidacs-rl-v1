@@ -51,4 +51,8 @@ mvn install
 mvn exec:java
 ```
 
-Cat header.csv to the rest of the code.
+After the program finishes, a folder called `linkage-*date*-*time*` will be created with the files resulting from Spark run. There will be multiple files inside the folder. In order to generate a single csv file, execute the following command inside the linkage folder:
+
+`
+cat * > linkage.csv
+`
