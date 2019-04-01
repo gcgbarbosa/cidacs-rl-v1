@@ -48,6 +48,8 @@ public class Main {
             .option("inferSchema", "false")
             .option("header", "true")
             .load(config.getDbB());
+            
+        String resultPath = "assets/linkage-" + new java.text.SimpleDateFormat("yyyyMMdd-HHmmss").format(java.util.Calendar.getInstance().getTime());
 
         dsb.javaRDD().map(new Function<Row, String>() {
             public String call(Row row){
@@ -90,9 +92,9 @@ public class Main {
                 return linkage.linkSpark(tmpRecord);
             }
             private static final long serialVersionUID = 1L;
-        }).saveAsTextFile("assets/result_" + new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(java.util.Calendar.getInstance().getTime()));
+        }).saveAsTextFile(resultPath);
 
-        csvHandler.writeHeaderFromConfig("assets/header.csv", config);
+        csvHandler.writeHeaderFromConfig(resultPath + "/header.csv", config);
         //
         // Write header to file
         spark.stop();
