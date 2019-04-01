@@ -50,3 +50,5 @@ mvn install
 ```
 mvn exec:java
 ```
+
+Cat header.csv to the rest of the code.
