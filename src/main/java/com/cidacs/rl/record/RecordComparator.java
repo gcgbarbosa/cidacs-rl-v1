@@ -20,7 +20,7 @@ public  class RecordComparator {
         ColumnRecordModel columnA=null;
         ColumnRecordModel columnB=null;
 
-        double scoreNomes=0.0, scoreDates=0.0,  scoreIbge=0.0, scoreCategorical=0.0;
+        double scoreNomes=0.0, scoreDates=0.0,  scoreIbge=0.0, scoreCategorical=0.0, scoreGender=0.0;
 
         for(ColumnConfigModel columnConfig : this.config.getColumns()){
             // nao avaliar colunas sem peso
@@ -78,15 +78,27 @@ public  class RecordComparator {
                 }
             }
             // PARA SEXO
-            if (columnConfig.getType().equals("categorical")){
+            if (columnConfig.getType().equals("gender")){
                 try {
                     if (columnA.getValue().isEmpty() == false && columnB.getValue().isEmpty() == false) {
                         tmp_total = tmp_total + columnConfig.getWeight();
                         if(columnA.getValue().charAt(columnA.getValue().length()-1) == columnB.getValue().charAt(columnB.getValue().length()-1)) {
-                            scoreCategorical = scoreCategorical + columnConfig.getWeight();
+                            scoreGender = scoreGender + columnConfig.getWeight();
                         } else {
-                            scoreCategorical = scoreCategorical + this.getDistanceCategorical(columnA.getValue(), columnB.getValue(), columnConfig.getWeight());
+                            scoreGender = scoreGender + this.getDistanceCategorical(columnA.getValue(), columnB.getValue(), columnConfig.getWeight());
                         }
+                    }
+                } catch (StringIndexOutOfBoundsException ibge) {
+                    System.out.println("Variável sexo com erro: " + columnA.getValue());
+                }
+            }
+
+            // PARA CATEGORICAS
+            if (columnConfig.getType().equals("categorical")){
+                try {
+                    if (columnA.getValue().isEmpty() == false && columnB.getValue().isEmpty() == false) {
+                        tmp_total = tmp_total + columnConfig.getWeight();
+                        scoreCategorical = scoreCategorical + this.getDistanceCategorical(columnA.getValue(), columnB.getValue(), columnConfig.getWeight());
                     }
                 } catch (StringIndexOutOfBoundsException ibge) {
                     System.out.println("Categorica com erro: " + columnA.getValue());
@@ -97,9 +109,8 @@ public  class RecordComparator {
             penalty = penalty * 2;
         }
 
-        score = scoreCategorical+scoreDates+scoreIbge+scoreNomes;
+        score = scoreCategorical+scoreDates+scoreIbge+scoreNomes+scoreGender;
         return (score / tmp_total)-penalty;
-        //return 0.0;
     }
 
     public RecordPairModel findBestCandidatePair(RecordModel record, ArrayList<RecordModel> candidates){
