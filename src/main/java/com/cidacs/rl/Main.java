@@ -30,9 +30,9 @@ public class Main {
         Indexing indexing = new Indexing(config);
 
         // read database A using CSV
-        Iterable<CSVRecord> dbACsvRecords;
-        dbACsvRecords = csvHandler.getCsvIterable(config.getDbA());
-        indexing.index(dbACsvRecords);
+        Iterable<CSVRecord> dbBCsvRecords;
+        dbBCsvRecords = csvHandler.getCsvIterable(config.getDbB());
+        indexing.index(dbBCsvRecords);
 
         // Start Spark session
         SparkSession spark = SparkSession
@@ -47,7 +47,7 @@ public class Main {
             .option("sep", ",")
             .option("inferSchema", "false")
             .option("header", "true")
-            .load(config.getDbB());
+            .load(config.getDbA());
             
         String resultPath = "assets/linkage-" + new java.text.SimpleDateFormat("yyyyMMdd-HHmmss").format(java.util.Calendar.getInstance().getTime());
 
