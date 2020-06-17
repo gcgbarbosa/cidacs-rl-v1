@@ -56,3 +56,9 @@ After the program finishes, a folder called `linkage-*date*-*time*` will be crea
 ```
 cat * > linkage.csv
 ```
+
+# Usecases:
+
+1. Pescarini JM, Williamson E, Nery JS, et al. **Effect of a conditional cash transfer programme on leprosy treatment adherence and cure in patients from the nationwide 100 Million Brazilian Cohort: a quasi-experimental study**. Lancet Infect Dis. 2020;20(5):618-627. doi:10.1016/S1473-3099(19)30624-3 [link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6750604/)
+
+
