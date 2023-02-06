@@ -1,6 +1,15 @@
 # Cidacs-RL
 
-
+Citing:
+```
+@article{Barbosa2020CIDACSRLAN,
+  title={CIDACS-RL: a novel indexing search and scoring-based record linkage system for huge datasets with high accuracy and scalability},
+  author={George C. G. Barbosa and M. S. Ali and Bruno Rodrigues De Ara{\'u}jo and Sandra Reis and Samila Sena and Maria Yuri Ichihara and J{\'u}lia Moreira Pescarini and Rosemeire L. Fiaccone and Leila D Amorim and Robespierre Pita and Marcos Ennes Barreto and Liam Smeeth and Mauricio Lima Barreto},
+  journal={BMC Medical Informatics and Decision Making},
+  year={2020},
+  volume={20}
+}
+```
 
 ## How to run
 
